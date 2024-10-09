@@ -1609,8 +1609,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: LOAD SPRITES
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8df668e112519e545a6db00a927f03a4, type: 2}
-  m_sharedMaterial: {fileID: -8944219538524964536, guid: 8df668e112519e545a6db00a927f03a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f248445a935391a4e8905b5efa79851d, type: 2}
+  m_sharedMaterial: {fileID: -9086941612973176089, guid: f248445a935391a4e8905b5efa79851d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
