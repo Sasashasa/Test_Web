@@ -9,6 +9,8 @@ public class AddressableObjectsLoader : MonoBehaviour
     [SerializeField] private AssetReferenceSprite[] _assetReferenceSprites;
     [SerializeField] private SpriteRenderer[] _spriteRenderers;
 
+    private int _spriteRendererIndex;
+
     private void Awake()
     {
         Instance = this;
@@ -16,22 +18,23 @@ public class AddressableObjectsLoader : MonoBehaviour
 
     public void LoadSprites()
     {
-        for (int i = 0; i < _assetReferenceSprites.Length; i++)
+        _spriteRendererIndex = 0;
+        
+        foreach (var assetReferenceSprite in _assetReferenceSprites)
         {
-            int j = i;
-            
-            _assetReferenceSprites[i].LoadAssetAsync<Sprite>().Completed +=
-                asyncOperationHandle =>
-                {
-                    if (asyncOperationHandle.Status == AsyncOperationStatus.Succeeded)
-                    {
-                        _spriteRenderers[j].sprite = asyncOperationHandle.Result;
-                    }
-                    else
-                    {
-                        Debug.Log("Failed to load!");
-                    }
-                };
+            assetReferenceSprite.LoadAssetAsync<Sprite>().Completed += OnLoadAssetAsyncCompleted;
+        }
+    }
+
+    private void OnLoadAssetAsyncCompleted(AsyncOperationHandle<Sprite> asyncOperationHandle)
+    {
+        if (asyncOperationHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+            _spriteRenderers[_spriteRendererIndex++].sprite = asyncOperationHandle.Result;
+        }
+        else
+        {
+            Debug.Log("Failed to load!");
         }
     }
 }
