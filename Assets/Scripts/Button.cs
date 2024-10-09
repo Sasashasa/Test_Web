@@ -1,37 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Button : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerEnterHandler {
-    bool on;
-    Animator animator;
-    public void OnPointerClick(PointerEventData eventData) {
-        Debug.Log("Click");
-        on = true;
-    }
+[RequireComponent(typeof(Animator))]
+public class Button : MonoBehaviour, IPointerClickHandler
+{
+    [SerializeField] private LoadSprites _loadSprites;
+    
+    private static readonly int _clicked = Animator.StringToHash("clicked");
+    private bool _isFirstClick = true;
 
-    public void OnPointerDown(PointerEventData eventData) {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnPointerEnter(PointerEventData eventData) {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnPointerExit(PointerEventData eventData) {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnPointerUp(PointerEventData eventData) {
-        throw new System.NotImplementedException();
-    }
-
-    void Update() {
-        if (on) {
-            animator = GetComponent<Animator>();
-            animator.SetBool("anim", true);
-            GameObject.Find("Panel").GetComponent<LoadSprites>().load();
-        }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!_isFirstClick)
+            return;
+        
+        _isFirstClick = false;
+        GetComponent<Animator>().SetBool(_clicked, true);
+        
+        _loadSprites.load();
     }
 }
