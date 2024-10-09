@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Animator))]
-public class Button : MonoBehaviour, IPointerClickHandler
+public class LoadSpritesButton : MonoBehaviour, IPointerClickHandler
 {
     private static readonly int _clicked = Animator.StringToHash("clicked");
     private bool _isFirstClick = true;
