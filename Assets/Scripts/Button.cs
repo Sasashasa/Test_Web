@@ -4,8 +4,6 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Animator))]
 public class Button : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private LoadSprites _loadSprites;
-    
     private static readonly int _clicked = Animator.StringToHash("clicked");
     private bool _isFirstClick = true;
 
@@ -15,8 +13,9 @@ public class Button : MonoBehaviour, IPointerClickHandler
             return;
         
         _isFirstClick = false;
+        
         GetComponent<Animator>().SetBool(_clicked, true);
         
-        _loadSprites.load();
+        AddressableObjectsLoader.Instance.LoadSprites();
     }
 }
